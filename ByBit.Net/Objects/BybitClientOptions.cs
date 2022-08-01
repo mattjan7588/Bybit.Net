@@ -65,6 +65,16 @@ namespace Bybit.Net.Objects
             set => _spotApiOptions = new RestApiClientOptions(_spotApiOptions, value);
         }
 
+        private RestApiClientOptions _copyTradingApiOptions = new RestApiClientOptions(BybitApiAddresses.Default.SpotRestClientAddress);
+        /// <summary>
+        /// Copy trading API options
+        /// </summary>
+        public RestApiClientOptions CopyTradingApiOptions
+        {
+            get => _copyTradingApiOptions;
+            set => _copyTradingApiOptions = new RestApiClientOptions(_copyTradingApiOptions, value);
+        }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -101,7 +111,8 @@ namespace Bybit.Net.Objects
         /// </summary>
         public static BybitSocketClientOptions Default { get; set; } = new BybitSocketClientOptions()
         {
-            SocketSubscriptionsCombineTarget = 10
+            SocketSubscriptionsCombineTarget = 10,
+            PingInterval = TimeSpan.FromSeconds(20)
         };
 
         private BybitSocketApiClientOptions _inverseFuturesStreamsOptions = new BybitSocketApiClientOptions(BybitApiAddresses.Default.InverseFuturesSocketClientAddress, BybitApiAddresses.Default.InverseFuturesSocketClientAddress);
@@ -144,6 +155,21 @@ namespace Bybit.Net.Objects
             set => _spotStreamsOptions = new BybitSocketApiClientOptions(_spotStreamsOptions, value);
         }
 
+        private BybitSocketApiClientOptions _copyTradingStreamsOptions = new BybitSocketApiClientOptions(BybitApiAddresses.Default.CopyTradingSocketClientAddress, BybitApiAddresses.Default.CopyTradingSocketClientAddress);
+        /// <summary>
+        /// Copy trading streams options
+        /// </summary>
+        public BybitSocketApiClientOptions CopyTradingStreamsOptions
+        {
+            get => _copyTradingStreamsOptions;
+            set => _copyTradingStreamsOptions = new BybitSocketApiClientOptions(_copyTradingStreamsOptions, value);
+        }
+
+        /// <summary>
+        /// Interval at which to send a ping to the server
+        /// </summary>
+        public TimeSpan PingInterval { get; set; }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -159,6 +185,8 @@ namespace Bybit.Net.Objects
         {
             if (baseOn == null)
                 return;
+
+            PingInterval = baseOn.PingInterval;
 
             InverseFuturesStreamsOptions = new BybitSocketApiClientOptions(baseOn.InverseFuturesStreamsOptions, null);
             InversePerpetualStreamsOptions = new BybitSocketApiClientOptions(baseOn.InversePerpetualStreamsOptions, null);
