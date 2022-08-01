@@ -60,6 +60,12 @@ namespace Bybit.Net.Objects.Models.Socket
         /// Timestamp
         /// </summary>
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Position mode (only availaable on USD perpetual)
+        /// </summary>
+        [JsonConverter(typeof(PositionModeConverter))]
+        [JsonProperty("position_idx")]
+        public PositionMode? PositionMode { get; set; }
     }
 
     /// <summary>

@@ -23,7 +23,16 @@ namespace Bybit.Net.Objects.Models
         /// Base price
         /// </summary>
         [JsonProperty("base_price")]
-        public decimal BasePrice { get; set; }       
+        public decimal BasePrice { get; set; }
+
+        /// <summary>
+        /// Stop order status
+        /// </summary>
+        [JsonProperty("stop_order_status"), JsonConverter(typeof(StopOrderStatusConverter))]
+        public StopOrderStatus Status { get; set; }
+        [JsonProperty("order_status"), JsonConverter(typeof(StopOrderStatusConverter))]
+        internal StopOrderStatus? _status { get => Status; set { if (value != null) Status = value.Value; } }
+
         /// <summary>
         /// Trigger type
         /// </summary>

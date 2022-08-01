@@ -11,18 +11,14 @@ namespace Bybit.Net.Objects.Models
     public class BybitPosition: BybitPositionBase
     {
         /// <summary>
-        /// Id
-        /// </summary>
-        public string Id { get; set; } = string.Empty;     
-        /// <summary>
         /// Whether the current data is valid. Only use data when IsValid is true
         /// </summary>
-        public bool IsValid { get; set; }        
+        public bool IsValid { get; set; }
         /// <summary>
         /// Isolated margin mode
         /// </summary>
         [JsonProperty("is_isolated")]
-        public bool IsIsolated { get; set; }   
+        public bool IsIsolated { get; set; }
         /// <summary>
         /// Effective leverage
         /// </summary>

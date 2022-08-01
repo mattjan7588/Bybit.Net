@@ -496,7 +496,7 @@ namespace Bybit.Net.Clients.UsdPerpetualApi
 
         #region Set Trading Stop
         /// <inheritdoc />
-        public async Task<WebCallResult> SetTradingStopAsync(
+        public async Task<WebCallResult<BybitPositionUsd>> SetTradingStopAsync(
             string symbol,
             PositionSide side,
             decimal? takeProfitPrice = null,
@@ -525,8 +525,7 @@ namespace Bybit.Net.Clients.UsdPerpetualApi
             parameters.AddOptionalParameter("position_idx", positionMode == null ? null : JsonConvert.SerializeObject(positionMode, new PositionModeConverter(false)));
             parameters.AddOptionalParameter("recv_window", receiveWindow?.ToString(CultureInfo.InvariantCulture) ?? _baseClient.ClientOptions.ReceiveWindow.TotalMilliseconds.ToString(CultureInfo.InvariantCulture));
 
-            var result = await _baseClient.SendRequestAsync<object>(_baseClient.GetUrl("private/linear/position/trading-stop"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            return result.AsDataless();
+            return await _baseClient.SendRequestAsync<BybitPositionUsd>(_baseClient.GetUrl("private/linear/position/trading-stop"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
         #endregion
     }

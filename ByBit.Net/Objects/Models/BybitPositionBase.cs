@@ -10,6 +10,10 @@ namespace Bybit.Net.Objects.Models
     public class BybitPositionBase
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        public string Id { get; set; } = string.Empty;
+        /// <summary>
         /// User id
         /// </summary>
         [JsonProperty("user_id")]

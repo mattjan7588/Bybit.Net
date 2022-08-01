@@ -54,6 +54,11 @@ namespace Bybit.Net.Objects.Models.Socket
         /// </summary>
         [JsonProperty("position_seq")]
         public long PositionSequence { get; set; }
+        /// <summary>
+        /// Isolated margin mode
+        /// </summary>
+        [JsonProperty("is_isolated")]
+        public virtual bool IsIsolated { get; set; }
     }
 
     /// <summary>
@@ -73,7 +78,8 @@ namespace Bybit.Net.Objects.Models.Socket
         /// <summary>
         /// Is isolated
         /// </summary>
-        public bool Isolated { get; set; }
+        [JsonProperty("isolated")]
+        public override bool IsIsolated { get; set; }
         /// <summary>
         /// Position id
         /// </summary>
